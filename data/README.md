@@ -36,17 +36,17 @@ surveys/
 
 [**`dhs_clusters.csv`**](./dhs_clusters.csv): This CSV file contains data derived from DHS surveys, aggregated to the cluster level. Each of the 19,669 rows (excluding the CSV header) represents a cluster from a single survey. The columns are as follows:
 
-column          | description
-----------------|------------
-`country`       | country
-`year`          | year that the survey started (some surveys lasted more than 1 year)
-`lat`           | latitude coordinate of the cluster, possibly displaced (see [below](#gps-coordinate-displacement))
-`lon`           | longitude coordinate of the cluster, possibly displaced (see [below](#gps-coordinate-displacement))
-`GID_1`         | level 1 administrative region ID
-`GID_2`         | level 2 administrative region ID
-`wealthpooled`  | mean asset wealth index (AWI) of households within the cluster
-`households`    | number of households surveyed in the cluster
-`urban_rural`   | 0 = rural, 1 = urban
+| column         | description                                                                                         |
+|----------------|-----------------------------------------------------------------------------------------------------|
+| `country`      | country                                                                                             |
+| `year`         | year that the survey started (some surveys lasted more than 1 year)                                 |
+| `lat`          | latitude coordinate of the cluster, possibly displaced (see [below](#gps-coordinate-displacement))  |
+| `lon`          | longitude coordinate of the cluster, possibly displaced (see [below](#gps-coordinate-displacement)) |
+| `GID_1`        | level 1 administrative region ID                                                                    |
+| `GID_2`        | level 2 administrative region ID                                                                    |
+| `wealthpooled` | mean asset wealth index (AWI) of households within the cluster                                      |
+| `households`   | number of households surveyed in the cluster                                                        |
+| `urban_rural`  | 0 = rural, 1 = urban                                                                                |
 
 The administrative region IDs are taken from the [GADM](https://gadm.org/) v3.6 database. Due to the random displacement of geocoordinates, certain (lat, lon) coordinates do not strictly fall within an administrative region of the country. In these cases, the coordinates were assigned to the closest region. For points in Lesotho, where level 1 administrative regions are not further divided into level 2 administrative regions, the level 2 region ID is set to be the same as the level 1 region ID. For details, see [`other/match_gids.py`](../other/match_gids.py).
 
@@ -60,40 +60,38 @@ The AWI used in the `wealthpooled` index was computed as follows:
 
 [**`dhsnl_locs.csv`**](./dhsnl_locs.csv): This CSV file contains locations used for training the transfer learning models. The 260,415 locations were sampled randomly from an 18x18 grid centered on each DHS survey location, where each grid cell has dimensions 0.00833° latitude and longitude. The original DHS cluster locations (from `dhs_clusters.csv`) are included as well. Locations for which satellite images could not be obtained were filtered out. The columns are as follows:
 
-column    | description
-----------|------------
-`country` | country
-`year`    | year
-`lat`     | latitude coordinate
-`lon`     | longitude coordinate
-
+| column    | description          |
+|-----------|----------------------|
+| `country` | country              |
+| `year`    | year                 |
+| `lat`     | latitude coordinate  |
+| `lon`     | longitude coordinate |
 
 [**`lsms_clusters.csv`**](./lsms_clusters.csv): This CSV file indicates the locations and years of the LSMS clusters. Each of the 2,913 rows (excluding the CSV header) represents a cluster from a single survey. The columns are as follows:
 
-column          | description
-----------------|------------
-`country`       | country
-`year`          | year that the survey started (some surveys lasted more than 1 year)
-`lat`           | latitude coordinate of the cluster, possibly displaced (see [below](#gps-coordinate-displacement))
-`lon`           | longitude coordinate of the cluster, possibly displaced (see [below](#gps-coordinate-displacement))
-`geolev1`       | administrative level-1 region ID
-`geolev2`       | administrative level-2 region ID
-
+| column    | description                                                                                         |
+|-----------|-----------------------------------------------------------------------------------------------------|
+| `country` | country                                                                                             |
+| `year`    | year that the survey started (some surveys lasted more than 1 year)                                 |
+| `lat`     | latitude coordinate of the cluster, possibly displaced (see [below](#gps-coordinate-displacement))  |
+| `lon`     | longitude coordinate of the cluster, possibly displaced (see [below](#gps-coordinate-displacement)) |
+| `geolev1` | administrative level-1 region ID                                                                    |
+| `geolev2` | administrative level-2 region ID                                                                    |
 
 [**`lsms_diffs.csv`**](./lsms_diffs.csv): This CSV file contains the changes in asset wealth index (AWI) over time for LSMS clusters. Each of the 1,539 rows (excluding the CSV header) represents a cluster across two surveys. The columns are as follows:
 
-column          | description
-----------------|------------
-`country`       | country
-`lat`           | latitude coordinate of the cluster, possibly displaced (see [below](#gps-coordinate-displacement))
-`lon`           | longitude coordinate of the cluster, possibly displaced (see [below](#gps-coordinate-displacement))
-`year.x`        | year that 1st survey started (some surveys lasted more than 1 year)
-`year.y`        | year that 2nd survey started, `year.y` > `year.x`
-`diff_of_index` | change in cluster-level AWI, see below
-`index_of_diff` | cluster-level index of asset differences, see below
-`households`    | number of households that were included in the calculation of the change in cluster-level AWI
-`geolev1`       | administrative level-1 region ID
-`geolev2`       | administrative level-2 region ID
+| column          | description                                                                                         |
+|-----------------|-----------------------------------------------------------------------------------------------------|
+| `country`       | country                                                                                             |
+| `lat`           | latitude coordinate of the cluster, possibly displaced (see [below](#gps-coordinate-displacement))  |
+| `lon`           | longitude coordinate of the cluster, possibly displaced (see [below](#gps-coordinate-displacement)) |
+| `year.x`        | year that 1st survey started (some surveys lasted more than 1 year)                                 |
+| `year.y`        | year that 2nd survey started, `year.y` > `year.x`                                                   |
+| `diff_of_index` | change in cluster-level AWI, see below                                                              |
+| `index_of_diff` | cluster-level index of asset differences, see below                                                 |
+| `households`    | number of households that were included in the calculation of the change in cluster-level AWI       |
+| `geolev1`       | administrative level-1 region ID                                                                    |
+| `geolev2`       | administrative level-2 region ID                                                                    |
 
 For each pair of years, the `diff_of_index` value for a given cluster *C* is (cluster *C*'s AWI in year `year.y`) - (cluster *C*'s AWI in year `year.x`). Only households that were surveyed in both `year.x` and `year.y` were included in the mean. Here, the cluster-level AWI is computed in a similar fasion as for the DHS surveys, taking the PCA of the household assets and then taking the mean across households.
 
@@ -134,31 +132,29 @@ The following LSMS surveys were included (both for creating the "wealthpooled" i
 [**`dhs_sample_GEE.csv`**](./overpass/dhs_sample_GEE.csv): Number of times various satellites imaged each of 500 clusters locations randomly sampled from DHS surveys per year from 2000 to 2018, inclusive. The images from satellites in this file (Landsat-5/7/8, MODIS, and Sentinel-1/2) are publicly accessible.
 - TODO(ztang): include script used to generate this file
 
-column         | description
----------------|------------
-`system.index` | index variable used by Google Earth Engine
-`LONGNUM`      | longitude
-`cluster_id`   | DHS survey and cluster ID
-`num_l5`       | number of times Landsat-5 satellite imaged the location in the given year
-`num_l7`       | number of times Landsat-7 satellite imaged the location in the given year
-`num_l8`       | number of times Landsat-8 satellite imaged the location in the given year
-`num_modis`    | number of times MODIS satellite imaged the location in the given year
-`num_s1`       | number of times Sentinel-1 satellite imaged the location in the given year
-`num_s2`       | number of times Sentinel-2 satellite imaged the location in the given year
-`.geo`         | GeoJSON representation of the sampled location
-`year`         | year
-
+| column         | description                                                                |
+|----------------|----------------------------------------------------------------------------|
+| `system.index` | index variable used by Google Earth Engine                                 |
+| `LONGNUM`      | longitude                                                                  |
+| `cluster_id`   | DHS survey and cluster ID                                                  |
+| `num_l5`       | number of times Landsat-5 satellite imaged the location in the given year  |
+| `num_l7`       | number of times Landsat-7 satellite imaged the location in the given year  |
+| `num_l8`       | number of times Landsat-8 satellite imaged the location in the given year  |
+| `num_modis`    | number of times MODIS satellite imaged the location in the given year      |
+| `num_s1`       | number of times Sentinel-1 satellite imaged the location in the given year |
+| `num_s2`       | number of times Sentinel-2 satellite imaged the location in the given year |
+| `.geo`         | GeoJSON representation of the sampled location                             |
+| `year`         | year                                                                       |
 
 [**`dhs_sample_Planet.csv`**](./overpass/dhs_sample_Planet.csv): Number of times the PlanetScope and RapidEye satellites from Planet Labs imaged each of 500 clusters locations randomly sampled from DHS surveys per year from 2000 to 2018, inclusive. The locations are the same as in the `dhs_sample_GEE.csv` file.
 - TODO(ztang): include script used to generate this file
 
-column              | description
---------------------|------------
-`year`              | year
-`count_PlanetScope` | number of times PlanetScope satellite imaged the location in the given year
-`count_RapidEye`    | number of times RapidEye satellite imaged the location in the given year
-`cluster_id`        | DHS survey and cluster ID
-
+| column              | description                                                                 |
+|---------------------|-----------------------------------------------------------------------------|
+| `year`              | year                                                                        |
+| `count_PlanetScope` | number of times PlanetScope satellite imaged the location in the given year |
+| `count_RapidEye`    | number of times RapidEye satellite imaged the location in the given year    |
+| `cluster_id`        | DHS survey and cluster ID                                                   |
 
 [**`landinfo_dhs_sample_nocatalog.csv`**](./overpass/landinfo_dhs_sample_nocatalog.csv): Record of various other satellites imaging each of 500 clusters locations randomly sampled from DHS surveys per year from 2000 to 2018, inclusive. The locations are the same as in the `dhs_sample_GEE.csv` file. Includes the following satellites:
 - DigitalGlobe: IKONOS (≤1.06m), QuickBird-2 (≤0.85m), GeoEye-1 (≤0.61m), WorldView-1/2/3/4 (≤0.70m/0.63m/0.42m/0.40m)
@@ -169,31 +165,29 @@ column              | description
 
 TODO(ztang): include script used to generate this file
 
-column        | description
---------------|------------
-`sensor`      | name of the satellite
-`date`        | date of satellite image, in format `dd-mmm-yy`
-`resolution`  | resolution per pixel
-`cloud`       | estimated cloud cover
-`off-nadir`   | n/a
-`sun`         | n/a
-`stereo-pair` | n/a
-`name`        | n/a
-`cluster_id`  | DHS survey and cluster ID
-`lon`         | longitude
-`lat`         | latitude
-
+| column        | description                                    |
+|---------------|------------------------------------------------|
+| `sensor`      | name of the satellite                          |
+| `date`        | date of satellite image, in format `dd-mmm-yy` |
+| `resolution`  | resolution per pixel                           |
+| `cloud`       | estimated cloud cover                          |
+| `off-nadir`   | n/a                                            |
+| `sun`         | n/a                                            |
+| `stereo-pair` | n/a                                            |
+| `name`        | n/a                                            |
+| `cluster_id`  | DHS survey and cluster ID                      |
+| `lon`         | longitude                                      |
+| `lat`         | latitude                                       |
 
 ## Files in `data/survey/`
 
 [**`crosswalk_countries.csv`**](./surveys/crosswalk_countries.csv): "crosswalk" between ISO3, country names, and country names used in prediction data. Used in code for various figures.
 
-column          | description
-----------------|------------
-`iso3`          | ISO 3166-1 alpha-3 ("ISO 3") country code (as used by `population_time.csv`)
-`country`       | country names (as used by `dhs_time.csv` and `povcal_time_pop.csv`)
-`country_pred`  | TODO: unclear
-
+| column         | description                                                                  |
+|----------------|------------------------------------------------------------------------------|
+| `iso3`         | ISO 3166-1 alpha-3 ("ISO 3") country code (as used by `population_time.csv`) |
+| `country`      | country names (as used by `dhs_time.csv` and `povcal_time_pop.csv`)          |
+| `country_pred` | TODO: unclear                                                                |
 
 [**`dhs_time.csv`**](./surveys/dhs_time.csv): Number of individuals in each African country surveyed each year by DHS in nationally-representative asset wealth surveys, for completed surveys started between 2000 and 2016, inclusive. A DHS survey is considered to be a nationally-representative asset wealth survey if it was listed under the [DHS wealth index page](https://dhsprogram.com/topics/wealth-index/Wealth-Index-Construction.cfm) (accessed on [May 21, 2020](https://web.archive.org/web/20200521053030/https://dhsprogram.com/topics/wealth-index/Wealth-Index-Construction.cfm)) or if its survey report indicated as such. We gathered the list of all non-SPA surveys from the [DHS Survey Search website](https://dhsprogram.com/What-We-Do/Survey-Search.cfm) (accessed on [May 20, 2020](https://web.archive.org/web/20200521011046/https://dhsprogram.com/what-we-do/survey-search.cfm?sendsearch=1&sur_status=Completed&YrFrom=2000&YrTo=2020&str1=10,27,43,76,52,3,50,51,4,100,5,59,53,60,243,7,118,12,220,65,66,129,14,67,20,160,22,23,24,25,68,61,28,29,30,62,35,205,36,208,55,38,39,41,44,47,48,,&str2=1,2,3,17,4,7,8,9,13,18,16,,&crt=1&listview=2&listgrp=0)) and removed the three surveys that did not include a nationally-representative survey of asset wealth: Central African Republic MICS 2010, Mauritania Special 2003-04, and Sao Tome and Principe MICS 2014. Country names were changed to match those in `crosswalk_countries.csv`. Used in [`figs/fig_1_surveyrates.R`](../figs/fig_1_surveyrates.R).
 

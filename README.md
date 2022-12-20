@@ -114,38 +114,38 @@ tensorboard --logdir {out_dir}
 
 Settings for "out-of-country" vs. "in-country" experiments:
 
-Setting      | "out-of-country"     | "in-country"
--------------|----------------------|-------------
-`max_epochs` | 200                  | 150
-`ooc`        | `True`               | `False`
-`out_dir`    | `./outputs/dhs_ooc/` | `./outputs/dhs_incountry/`
+| Setting      | "out-of-country"     | "in-country"               |
+|--------------|----------------------|----------------------------|
+| `max_epochs` | 200                  | 150                        |
+| `ooc`        | `True`               | `False`                    |
+| `out_dir`    | `./outputs/dhs_ooc/` | `./outputs/dhs_incountry/` |
 
 Settings for different CNN models:
 
-Setting                 | `CNN MS`                                    | `CNN NL`
-------------------------|---------------------------------------------|-------------
-`ls_bands`              | `ms`                                        | `None`
-`nl_band`               | `None`                                      | `split`
-`imagenet_weights_path` | `./models/imagenet_resnet18_tensorpack.npz` | `None`
-`hs_weight_init`        | `samescaled`                                | `None`
+| Setting                 | `CNN MS`                                    | `CNN NL` |
+|-------------------------|---------------------------------------------|----------|
+| `ls_bands`              | `ms`                                        | `None`   |
+| `nl_band`               | `None`                                      | `split`  |
+| `imagenet_weights_path` | `./models/imagenet_resnet18_tensorpack.npz` | `None`   |
+| `hs_weight_init`        | `samescaled`                                | `None`   |
 
 The `imagenet_resnet18_tensorpack.npz` ImageNet pretrained weights can be downloaded from [here](https://github.com/sustainlab-group/africa_poverty/releases/download/v1.0.1/imagenet_resnet18_tensorpack.npz).
 
 For cross-validation hyper-parameter tuning, we tested the following values:
 
-Setting                        | Values Tested
--------------------------------|--------------------------------------------------------------------
-`dataset` (for out-of-country) | `'DHS_OOC_X'` where `X` is one of `['A', 'B', 'C', 'D', 'E']`
-`dataset` (for in-country)     | `'DHS_Incountry_X'` where `X` is one of `['A', 'B', 'C', 'D', 'E']`
-`reg`                          | `[1e-0, 1e-1, 1e-2, 1e-3]`
-`lr`                           | `[1e-2, 1e-3, 1e-4, 1e-5]`
+| Setting                        | Values Tested                                                       |
+|--------------------------------|---------------------------------------------------------------------|
+| `dataset` (for out-of-country) | `'DHS_OOC_X'` where `X` is one of `['A', 'B', 'C', 'D', 'E']`       |
+| `dataset` (for in-country)     | `'DHS_Incountry_X'` where `X` is one of `['A', 'B', 'C', 'D', 'E']` |
+| `reg`                          | `[1e-0, 1e-1, 1e-2, 1e-3]`                                          |
+| `lr`                           | `[1e-2, 1e-3, 1e-4, 1e-5]`                                          |
 
 Once the optimal hyperparameters for each cross-validation fold were determined, we then experimented with training the models on subsets of the data:
 
-Setting     | Values Tested
-------------|----------------------------
-`keep_frac` | `[0.05, 0.1, 0.25, 0.5, 1]`
-`seed`      | `[123, 456, 789]`
+| Setting     | Values Tested               |
+|-------------|-----------------------------|
+| `keep_frac` | `[0.05, 0.1, 0.25, 0.5, 1]` |
+| `seed`      | `[123, 456, 789]`           |
 
 Here is an example of a complete training run:
 
