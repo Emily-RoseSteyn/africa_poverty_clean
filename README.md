@@ -49,7 +49,7 @@ This code was tested on a system with the following specifications:
 The main software requirements are Python 3.7 with TensorFlow r1.15, and R 3.6. The complete list of required packages and library are listed in the `env.yml` file, which is meant to be used with `conda` (version 4.8.3). See [here](https://docs.conda.io/projects/conda/en/latest/user-guide/install/) for instructions on installing conda via Miniconda. Once conda is installed, run the following command to set up the conda environment:
 
 ```bash
-conda env update -f env.yml --prune
+conda env update --prune
 ```
 
 If you are using a GPU, you may need to also install CUDA 10 and cuDNN 7. If you do not have a GPU, replace the `tensorflow-gpu=1.15.*` line in the `env.yml` file with `tensorflow=1.15.*`.

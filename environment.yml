@@ -1,10 +1,10 @@
 # Creates a conda environment named "africa_poverty_clean".
 #
 # Install and update this environment with
-# conda env create -f env.yml
+# conda env create -f environment.yml
 #
 # Update this environment with
-# conda env update -f env.yml
+# conda env update --prune
 #
 # Uses conda-forge channel whenever possible to avoid the multiple-channel
 # mismatch problem.
@@ -32,8 +32,8 @@ dependencies:
   - scipy=1.6.3
   - seaborn=0.10.1
   - tqdm=4.60.0
-  - tensorflow=1.15.0  # for CPU
-#  - tensorflow-gpu=1.15.0  # for GPU support
+#  - tensorflow=1.15.0  # for CPU
+  - tensorflow-gpu=1.15.0  # for GPU support
   - conda-forge::r-base=3.6.3  # start of R and R packages
   - conda-forge::r-data.table=1.12.8
   - conda-forge::r-dplyr=0.8.5
