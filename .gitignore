@@ -2,18 +2,12 @@
 !*/.gitkeep
 .DS_Store
 ckpts/
-data/dhs_tfrecords/*
-!data/dhs_tfrecords/.gitkeep
-data/dhs_tfrecords_raw/*
-!data/dhs_tfrecords_raw/.gitkeep
-data/dhsnl_tfrecords/*
-!data/dhsnl_tfrecords/.gitkeep
-data/dhsnl_tfrecords_raw/*
-!data/dhsnl_tfrecords_raw/.gitkeep
-data/lsms_tfrecords/*
-!data/lsms_tfrecords/.gitkeep
-data/lsms_tfrecords_raw/*
-!data/lsms_tfrecords_raw/.gitkeep
+data/dhs_tfrecords
+data/dhs_tfrecords_raw
+data/dhsnl_tfrecords
+data/dhsnl_tfrecords_raw
+data/lsms_tfrecords
+data/lsms_tfrecords_raw
 logs/
 outputs/
 # END CUSTOM EXCLUSIONS
