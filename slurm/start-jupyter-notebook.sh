@@ -21,6 +21,7 @@ localhost:${port}  (prefix w/ https:// if using password)
 "
 
 # load modules or conda environments here
+module load mamba
 mamba activate africa_poverty_clean
 
 # Run Jupyter
