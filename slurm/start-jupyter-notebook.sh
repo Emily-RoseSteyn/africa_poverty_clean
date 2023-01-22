@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash --login
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=4
@@ -21,7 +21,6 @@ localhost:${port}  (prefix w/ https:// if using password)
 "
 
 # load modules or conda environments here
-module load mamba
 mamba activate africa_poverty_clean
 
 # Run Jupyter
