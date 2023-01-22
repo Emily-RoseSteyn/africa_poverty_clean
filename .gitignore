@@ -4,10 +4,13 @@
 ckpts/
 data/dhs_tfrecords
 data/dhs_tfrecords_raw
+data/dhs_processed.csv
 data/dhsnl_tfrecords
 data/dhsnl_tfrecords_raw
+data/dhsnl_processed.csv
 data/lsms_tfrecords
 data/lsms_tfrecords_raw
+data/lsms_processed.csv
 logs/
 outputs/
 # END CUSTOM EXCLUSIONS
