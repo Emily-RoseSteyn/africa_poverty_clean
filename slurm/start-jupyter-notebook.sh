@@ -21,7 +21,8 @@ localhost:${port}  (prefix w/ https:// if using password)
 "
 
 # load modules or conda environments here
+mamba env list
 mamba activate africa_poverty_clean
 
 # Run Jupyter
-jupyter-notebook --notebook-dir=.. --no-browser --port=${port} --ip=${node}
+jupyter-notebook --notebook-dir=.. --no-browser --port=${port} --ip=0.0.0.0
