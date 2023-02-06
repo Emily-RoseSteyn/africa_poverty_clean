@@ -4,7 +4,7 @@ from abc import ABCMeta, abstractmethod
 from collections.abc import Callable, Mapping
 import os
 import time
-from typing import Any
+from typing import Any, Optional
 
 import numpy as np
 import pandas as pd
@@ -18,8 +18,8 @@ from utils.analysis import evaluate
 from utils.run import load, run_batches
 
 # loss_fn(labels, preds, weights) -> (loss_total, loss_mse, loss_reg, loss_summaries)
-LossFn = Callable[[tf.Tensor, tf.Tensor, tf.Tensor | None],
-                  tuple[tf.Tensor, tf.Tensor, tf.Tensor, tf.Tensor | None]]
+LossFn = Callable[[tf.Tensor, tf.Tensor, Optional[tf.Tensor]],
+                  tuple[tf.Tensor, tf.Tensor, tf.Tensor, Optional[tf.Tensor]]]
 
 
 class BaseTrainer(metaclass=ABCMeta):
