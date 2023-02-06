@@ -1,27 +1,18 @@
-python train_direct.py
---label_name wealthpooled
---batcher base
---model_name resnet
---num_layers 18
---lr_decay 0.96
---batch_size 64
---gpu 0
---num_threads 5
---cache train
---augment True
---eval_every 1
---print_every 40
---ooc True
---max_epochs 200
---out_dir ./outputs/dhs_ooc/
---keep_frac 0.25
---seed 456
---experiment_name DHS_OOC_D_ms_samescaled_keep0.25_seed456
---dataset DHS_OOC_D
---ls_bands ms
---nl_band None
---lr 1e-2
---fc_reg 1e-3
---conv_reg 1e-3
---imagenet_weights_path ./models/imagenet_resnet18_tensorpack.npz
+python train_direct.py \
+--label_name wealthpooled \
+--model_name resnet --num_layers 18 \
+--lr_decay 0.96 --batch_size 64 \
+--gpu 0 --num_threads 5 \
+--cache train \
+--augment --eval_every 1 --print_every 40 \
+--ooc --max_epochs 200 \
+--out_dir ./outputs/dhs_ooc/ \
+--keep_frac 0.25 --seed 456 \
+--experiment_name DHS_OOC_D_ms_samescaled_keep0.25_seed456 \
+--dataset DHS_OOC_D \
+--ls_bands ms \
+--lr 1e-2 \
+--fc_reg 1e-3 \
+--conv_reg 1e-3 \
+--imagenet_weights_path ./models/imagenet_resnet18_tensorpack.npz \
 --hs_weight_init samescaled
